@@ -12,7 +12,6 @@ import { selectCurrentUser } from './redux/user/user-selector';
 import { createStructuredSelector } from 'reselect';
 import CheckoutPage from './components/pages/checkout/checkout';
 
-
 /*const HatsPage = () => (
   <div>
     <h1>HATS PAGE</h1>
@@ -36,7 +35,7 @@ class App extends React.Component {
           })              
         })        
       }   
-      this.setState( userAuth );          
+      this.setState( userAuth );      
     })
   }
 
