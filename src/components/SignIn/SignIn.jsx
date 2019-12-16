@@ -2,7 +2,9 @@ import React from 'react';
 import FormInput from '../FormInput/FormInput';
 import './SignIn.scss';
 import CustomButton from '../CustomButton/CustomButton';
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
+//import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
+import { googleSingInStart, emailSignInStart } from '../../redux/user/user-actions';
+import { connect } from 'react-redux';
 
 class SignIn extends React.Component {
     constructor(){
@@ -17,7 +19,10 @@ class SignIn extends React.Component {
 handleSubmit = async event => {
     event.preventDefault();
     const { email, password } = this.state;
-    try {
+
+    const { emailSignInStart } = this.props;
+    emailSignInStart(email, password);
+    /*try {
         await auth.signInWithEmailAndPassword(email, password);
         this.setState({
             email: '',
@@ -25,7 +30,7 @@ handleSubmit = async event => {
         });
     } catch (error) {
         console.error(error);
-    }
+    }*/
     this.setState({ email: '', password: ''})
 }
 
@@ -35,6 +40,7 @@ handleChange = event => {
 }
 
     render(){
+        const { googleSingInStart } = this.props;
         return(
             <div className='sign-in'>
                 <h2>I aleady have an account</h2>
@@ -47,7 +53,7 @@ handleChange = event => {
 
                     <div className='buttons'>
                         <CustomButton>Sign In</CustomButton>
-                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+                        <CustomButton type='button' onClick={googleSingInStart} isGoogleSignIn>
                             {''}
                             Sign In with Google {''}
                         </CustomButton>
@@ -57,5 +63,12 @@ handleChange = event => {
         )
     }
 }
-export default SignIn;
+
+const mapDispatchToProps = dispatch => ({
+    googleSingInStart: () => dispatch(googleSingInStart()),
+    emailSignInStart: (email, password) => dispatch(emailSignInStart({email, password}))
+})
+
+export default connect(null, mapDispatchToProps) (SignIn);
+
     
