@@ -1,22 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import CollectionsOverviewContainer from '../../collections-overview/collections-overview.container';
 import { Route } from 'react-router-dom';
 import  CollectionPageContainer from '../collection/collaction.container';
 import { connect } from 'react-redux';
 import { fetchCollectionsStart } from '../../../redux/shop/shop-actions';
-import { selectIsCollectionsLoaded } from '../../../redux/shop/shop-selectors';
 
-class Shop extends React.Component {
+const Shop = ({fetchCollectionsStart, match}) => {
 
-    unsubscribeFromSnapshot = null;
-
-    componentDidMount(){
-        const { fetchCollectionsStart } = this.props;
-        fetchCollectionsStart();
-
-    }
-    render(){
-        const { match } = this.props;
+    useEffect(() => {
+        fetchCollectionsStart()
+    }, [fetchCollectionsStart])
        
         return(
             <div className = 'shop-page'>
@@ -24,7 +17,6 @@ class Shop extends React.Component {
         <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />}  />
     </div>
         )
-    }
 } 
 
 

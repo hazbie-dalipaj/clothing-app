@@ -1,7 +1,6 @@
 import React from 'react';
 import './header.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
 import CartIcon from '../../components/cart-icon/cart-icon';
 import CartDropdown from '../cart-dropdown/cart-dropdown';
@@ -16,26 +15,23 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
         <LogoContainer to='/'>
             <Logo className='logo'></Logo>
         </LogoContainer>
+
         <OptionsContainer>
-            <OptionLink to='/shop'>
-                SHOP
-            </OptionLink>
-            <OptionLink to='/contact'>
-                CONTACT
-            </OptionLink>
+            <OptionLink to='/shop'> SHOP </OptionLink>
+
+            <OptionLink to='/contact'> CONTACT </OptionLink>
             {
-                currentUser ?
-                <OptionLink as='div' onClick={signOutStart}> SIGN OUT</OptionLink>
-                :
-                <OptionLink to='/signin'> SIGN IN </OptionLink>
-            }
-            <CartIcon />                      
+            currentUser ? (
+                <OptionLink as='div' onClick={signOutStart}> SIGN OUT </OptionLink>
+            ) : ( <OptionLink to='/signin'>SIGN IN</OptionLink>
+            )}
+
+            <CartIcon /> 
+                                 
         </OptionsContainer>
         {
             hidden ? null : <CartDropdown /> 
-        }
-       
-       
+        }  
     </HeaderContainer>
     
 )

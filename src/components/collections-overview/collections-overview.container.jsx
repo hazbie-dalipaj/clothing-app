@@ -12,7 +12,6 @@ const mapStateToProps = createStructuredSelector({
 const CollectionsOverviewContainer = compose(
     connect(mapStateToProps),
     WithSpinner
-)
-(CollectionsOverview);
+)(CollectionsOverview);
 
 export default CollectionsOverviewContainer;
